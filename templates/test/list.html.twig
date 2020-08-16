@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1>Tous les articles</h1>
+
+<ul>
+    {% for post in posts %}
+        <li>
+            <a href="{{ path('post_show', {id: post.id}) }}">{{ post.title }}</a>, posté depuis <i>{{ post.location ? post.location.name : '' }}</i>, mis à jour le {{ post.updatedAt is not null ? post.updatedAt|date('d-m-Y H:i:s') : '(jamais)' }}
+             | <a href="{{ path('post_edit', {id: post.id}) }}">Modifier</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

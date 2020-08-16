@@ -1,0 +1,11 @@
+COMMENT: content, comment date
+has, 0N POST, 11 COMMENT
+AUTHOR: name, country
+
+post_has_tag, 0N TAG, 0N POST
+POST: title, body, nb likes, created at
+writes, 11 POST, 0N AUTHOR
+
+TAG: name
+written at, 0N LOCATION, 01 POST
+LOCATION: name

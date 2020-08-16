@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+
+    <article class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <h6 class="card-subtitle mb-2 text-muted">publié le {{ post.createdAt|date('d-m-Y') }} par <b>{{ post.author.firstname ~ ' ' ~ post.author.lastname }}</b></h6>
+            <p class="card-text">{{ post.body }}</p>
+        </div>
+    </article>
+
+    {% if post.comments is not empty %}
+        <div class="comments-area my-4 text-center">
+            <h3>Commentaires</h3>
+
+            <div class="comments d-flex justify-content-center row">
+                {# On boucle sur les commentaires du post #}
+                {% for comment in post.comments %}
+                    <div class="comment card text-center col-4 mb-3 mx-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.username }}</h5>
+                            <p class="card-text">{{ comment.body }}</p>
+                            <p class="card-text"><small class="text-muted">le {{ comment.createdAt|date('d-m-Y H-i-s') }}</small></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {# Une fois chargé, les commentaires existent (lazy loading) #}
+    {% dump(post.comments) %}
+
+    {# Formulaire d'ajout de commentaire #}
+    {{ include('test/_add_comment.html.twig') }}
+    
+    <a href="{{ path('home') }}">Retour à l'accueil</a>
+
+{% endblock %}
